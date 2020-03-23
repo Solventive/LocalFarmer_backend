@@ -9,8 +9,15 @@ import java.util.Collection;
 public class LFUserPrincipal implements UserDetails {
     private LFUser user;
 
+    private int userId;
+
     public LFUserPrincipal(LFUser user) {
         this.user = user;
+    }
+
+    public LFUserPrincipal(LFUser user, int userId) {
+        this.user = user;
+        this.userId = userId;
     }
 
     @Override
@@ -25,7 +32,11 @@ public class LFUserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getPhoneNumber();
+    }
+
+    public int getUserId() {
+        return user.getId();
     }
 
     @Override

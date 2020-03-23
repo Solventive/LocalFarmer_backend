@@ -8,7 +8,6 @@ public class UsersValidator {
         return newUser.getPassword() != null &&
                 newUser.getName() != null &&
                 newUser.getFarmName() != null &&
-                newUser.getAccountType() != null &&
                 newUser.getPhoneNumber() != null;
     }
 }

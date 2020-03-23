@@ -20,7 +20,7 @@ public class LFUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(phoneNumber);
         }
-        return new LFUserPrincipal(user);
+        return new LFUserPrincipal(user, user.getId());
     }
 
 
