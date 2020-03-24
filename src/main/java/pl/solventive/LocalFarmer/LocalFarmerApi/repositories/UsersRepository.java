@@ -5,8 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.LFUser;
 
+import java.util.Optional;
+
 @Component
 public interface UsersRepository extends JpaRepository<LFUser, Integer> {
+
+    @Query("SELECT u FROM users u WHERE u.phoneNumber = ?1")
+    Optional<LFUser> findUserByPhoneNumber(String phoneNumber);
 
     @Query("SELECT u FROM users u WHERE u.name = ?1")
     LFUser getUserByName(String name);

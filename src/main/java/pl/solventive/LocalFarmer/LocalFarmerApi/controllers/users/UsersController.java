@@ -21,6 +21,11 @@ public class UsersController {
         return usersRepository.findAll();
     }
 
+    @GetMapping(path = "/verify/{phoneNumber}")
+    public Boolean verifyPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+        return usersRepository.findUserByPhoneNumber(phoneNumber).isPresent();
+    }
+
     @DeleteMapping(path = "")
     public String deleteAllUsers() {
         usersRepository.deleteAll();
