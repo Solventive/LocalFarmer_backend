@@ -18,6 +18,7 @@ public class LFUser {
     @Size
     @NonNull
     private String password;
+    @NonNull
     private String name;
     private String farmName;
     private String description;
@@ -27,6 +28,7 @@ public class LFUser {
     private Integer accountType;
     private Double latitude;
     private Double longitude;
+    @NonNull
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
