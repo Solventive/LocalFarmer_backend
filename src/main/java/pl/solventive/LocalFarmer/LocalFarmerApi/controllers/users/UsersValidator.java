@@ -7,7 +7,8 @@ public class UsersValidator {
     static Boolean validateRegisterUser(LFUser newUser) {
         return newUser.getPassword() != null &&
                 newUser.getName() != null &&
-                newUser.getFarmName() != null &&
-                newUser.getPhoneNumber() != null;
+                newUser.getAccountType() != null &&
+                newUser.getPhoneNumber() != null &&
+                newUser.getCreatedAt() != null;
     }
 }

@@ -7,10 +7,17 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 @Configuration
-
 @EnableResourceServer
-
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+    private static final String[] AUTH_WHITELIST = {
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+//            "/v1/users/register"
+    };
 
     private static final String RESOURCE_ID = "resource-server-rest-api";
 
@@ -22,7 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-//                .authorizeRequests().antMatchers("/v1/users/register").permitAll().and()  // ta linijka nie bedzie w produkcji
+                .authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll().and()  // gives free access to endpoints in the whitelist
                 .antMatcher("/**").authorizeRequests().anyRequest().authenticated();
     }
 }
