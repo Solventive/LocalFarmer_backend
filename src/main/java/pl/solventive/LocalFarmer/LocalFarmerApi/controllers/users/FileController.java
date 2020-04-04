@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/v1/files")
+@RequestMapping(path = "/v1/files", produces={"application/json; charset=UTF-8"})
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);

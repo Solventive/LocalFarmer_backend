@@ -9,7 +9,7 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.ProductCategoriesRe
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.ProductUnitsRepository;
 
 @RestController
-@RequestMapping(path = "/v1/products")
+@RequestMapping(path = "/v1/products", produces={"application/json; charset=UTF-8"})
 public class ProductsController {
 
     @Autowired

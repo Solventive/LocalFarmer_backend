@@ -8,7 +8,7 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.entities.Posting;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.PostingsRepository;
 
 @RestController
-@RequestMapping(path = "/v1/postings")
+@RequestMapping(path = "/v1/postings", produces={"application/json; charset=UTF-8"})
 public class PostingsController {
 
     @Autowired

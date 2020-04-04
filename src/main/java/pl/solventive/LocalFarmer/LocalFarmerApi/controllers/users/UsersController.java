@@ -9,7 +9,7 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.entities.LFUser;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UsersRepository;
 
 @RestController
-@RequestMapping(path = "/v1/users")
+@RequestMapping(path = "/v1/users", produces={"application/json; charset=UTF-8"})
 public class UsersController {
 
     @Autowired
