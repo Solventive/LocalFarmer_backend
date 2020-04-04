@@ -1,6 +1,7 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -13,8 +14,9 @@ public class Posting {
 
     // Fields
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @NonNull
     private String title;
@@ -25,9 +27,13 @@ public class Posting {
     @NonNull
     private Double price;
     @NonNull
-    private Integer unitId;
+    private Integer priceUnitId;
+    @NonNull
+    private Integer quantityUnitId;
     @NonNull
     private Integer categoryId;
+    @NonNull
+    private Double quantity;
     @NonNull
     @ElementCollection(targetClass = String.class)
     private List<String> tags;
@@ -43,12 +49,14 @@ public class Posting {
     @NonNull
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expiryDate;
+    @NonNull
+    private Integer status;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -84,12 +92,12 @@ public class Posting {
         this.price = price;
     }
 
-    public Integer getUnitId() {
-        return unitId;
+    public Integer getPriceUnitId() {
+        return priceUnitId;
     }
 
-    public void setUnitId(Integer unitId) {
-        this.unitId = unitId;
+    public void setPriceUnitId(Integer priceUnitId) {
+        this.priceUnitId = priceUnitId;
     }
 
     public Integer getCategoryId() {
@@ -154,5 +162,29 @@ public class Posting {
 
     public void setExpiryDate(LocalDateTime expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getQuantityUnitId() {
+        return quantityUnitId;
+    }
+
+    public void setQuantityUnitId(Integer quantityUnitId) {
+        this.quantityUnitId = quantityUnitId;
     }
 }

@@ -38,6 +38,7 @@ public class PostingsController {
     Posting newPosting(@RequestBody Posting posting) {
         if (validator.verifyPosting(posting)) {
             if (validator.verifyUserId(posting.getUserId())) {
+                if (posting.getStatus() == null) posting.setStatus(1);
                 return repository.save(posting);
             } else {
                 throw new ResponseStatusException(

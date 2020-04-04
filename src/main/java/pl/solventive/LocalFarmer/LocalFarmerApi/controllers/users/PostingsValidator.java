@@ -16,21 +16,17 @@ public class PostingsValidator {
     }
 
     public Boolean verifyPosting(Posting posting) {
-         if (
-                posting.getTitle() != null &&
-                        posting.getDescription() != null &&
-                        posting.getUserId() != null &&
-                        posting.getPrice() != null &&
-                        posting.getUnitId() != null &&
-                        posting.getCategoryId() != null &&
-                        posting.getTags() != null &&
-                        posting.getPhotos() != null &&
-                        posting.getCreatedAt() != null &&
-                        posting.getExpiryDate()!= null
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+        return posting.getTitle() != null &&
+                posting.getDescription() != null &&
+                posting.getUserId() != null &&
+                posting.getPrice() != null &&
+                posting.getPriceUnitId() != null &&
+                posting.getQuantityUnitId() != null &&
+                posting.getCategoryId() != null &&
+                posting.getTags() != null &&
+                posting.getPhotos() != null &&
+                posting.getCreatedAt() != null &&
+                posting.getExpiryDate() != null &&
+                posting.getQuantity() != null;
     }
 }
