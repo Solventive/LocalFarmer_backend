@@ -20,11 +20,10 @@ public class PostingsValidator {
                 posting.getDescription() != null &&
                 posting.getUserId() != null &&
                 posting.getPrice() != null &&
-                posting.getPriceUnitId() != null &&
                 posting.getQuantityUnitId() != null &&
                 posting.getCategoryId() != null &&
-                posting.getTags() != null &&
                 posting.getPhotos() != null &&
+                posting.getMainPhotoId() != null &&
                 posting.getCreatedAt() != null &&
                 posting.getExpiryDate() != null &&
                 posting.getQuantity() != null;

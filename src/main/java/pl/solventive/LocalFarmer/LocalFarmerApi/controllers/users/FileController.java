@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/v1/files", produces={"application/json; charset=UTF-8"})
+@RequestMapping(path = "/v1/files")
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
@@ -30,7 +30,7 @@ public class FileController {
     @Autowired
     private DBFileStorageService dbFileStorageService;
 
-    @PostMapping("/uploadFile")
+    @PostMapping(path = "/uploadFile", produces={"application/json; charset=UTF-8"})
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
         DBFile dbFile = dbFileStorageService.storeFile(file);
 
@@ -43,11 +43,17 @@ public class FileController {
                 .body(new FileMetaData(dbFile.getId(), dbFile.getFileType(), dbFile.getFileName()));
     }
 
-    @PostMapping("/uploadMultipleFiles")
+    @PostMapping(path = "/uploadMultipleFiles", produces={"application/json; charset=UTF-8"})
     public List<ResponseEntity> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.stream(files)
                 .map(this::uploadFile)
                 .collect(Collectors.toList());
+    }
+
+    @DeleteMapping(path = "/")
+    public ResponseEntity deleteAllFiles() {
+        dbFileStorageService.deleteAllFiles();
+        return ResponseEntity.ok().body(null);
     }
 
     @GetMapping("/downloadFile/{fileId}")

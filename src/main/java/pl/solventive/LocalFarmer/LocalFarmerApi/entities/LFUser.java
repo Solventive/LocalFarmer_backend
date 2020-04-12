@@ -26,8 +26,8 @@ public class LFUser {
     private String phoneNumber;
     @NonNull
     private Integer accountType;
-    private Double latitude;
-    private Double longitude;
+    private Integer ratings;
+    private Double ratingPoints;
     @NonNull
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
@@ -129,19 +129,19 @@ public class LFUser {
         this.accountType = accountType;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public Integer getRatings() {
+        return ratings;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setRatings(Integer ratings) {
+        this.ratings = ratings;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Double getRatingPoints() {
+        return ratingPoints;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setRatingPoints(Double ratingPoints) {
+        this.ratingPoints = ratingPoints;
     }
 }

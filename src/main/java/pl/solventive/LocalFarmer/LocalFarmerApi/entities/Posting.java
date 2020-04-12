@@ -27,20 +27,21 @@ public class Posting {
     @NonNull
     private Double price;
     @NonNull
-    private Integer priceUnitId;
-    @NonNull
     private Integer quantityUnitId;
     @NonNull
     private Integer categoryId;
     @NonNull
     private Double quantity;
-    @NonNull
     @ElementCollection(targetClass = String.class)
     private List<String> tags;
+    @NonNull
     private String mainPhotoId;
     @NonNull
     @ElementCollection(targetClass = String.class)
     private List<String> photos;
+    private String city;
+    private String street;
+    private String buildingNumber;
     private Double latitude;
     private Double longitude;
     @NonNull
@@ -90,14 +91,6 @@ public class Posting {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Integer getPriceUnitId() {
-        return priceUnitId;
-    }
-
-    public void setPriceUnitId(Integer priceUnitId) {
-        this.priceUnitId = priceUnitId;
     }
 
     public Integer getCategoryId() {
@@ -186,5 +179,29 @@ public class Posting {
 
     public void setQuantityUnitId(Integer quantityUnitId) {
         this.quantityUnitId = quantityUnitId;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getBuildingNumber() {
+        return buildingNumber;
+    }
+
+    public void setBuildingNumber(String buildingNumber) {
+        this.buildingNumber = buildingNumber;
     }
 }

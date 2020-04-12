@@ -40,4 +40,8 @@ public class DBFileStorageService {
         return dbFileRepository.findById(fileId)
                 .orElseThrow(() -> new EntityNotFoundException("File not found with id " + fileId));
     }
+
+    public void deleteAllFiles() {
+        dbFileRepository.deleteAll();
+    }
 }

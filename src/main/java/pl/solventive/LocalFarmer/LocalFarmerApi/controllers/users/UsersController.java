@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.LFUser;
+import pl.solventive.LocalFarmer.LocalFarmerApi.entities.UserType;
+import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UserTypesRepository;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UsersRepository;
 
 @RestController
@@ -15,10 +17,19 @@ public class UsersController {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private UserTypesRepository typesRepository;
+
     @GetMapping(path = "")
-    public Iterable<LFUser> getAllUsers() {
+    public Iterable<LFUser> getUsers() {
 
         return usersRepository.findAll();
+    }
+
+    @GetMapping(path = "/types")
+    public Iterable<UserType> getTypes() {
+
+        return typesRepository.findAll();
     }
 
     @GetMapping(path = "/verify/{phoneNumber}")
@@ -46,6 +57,8 @@ public class UsersController {
     @PostMapping(path = "/register")
     LFUser newUser(@RequestBody LFUser newUser) {
         if (UsersValidator.validateRegisterUser(newUser)) {
+            newUser.setRatings(0);
+            newUser.setRatingPoints(0.0);
             String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
             newUser.setPassword(encodedPassword);
             return usersRepository.save(newUser);
@@ -54,7 +67,6 @@ public class UsersController {
                     HttpStatus.BAD_REQUEST, "bad user body"
             );
         }
-
     }
 
 
