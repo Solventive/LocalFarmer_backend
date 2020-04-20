@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.Posting;
 
+import java.util.List;
+
 @Component
 public interface PostingsRepository extends JpaRepository<Posting, Integer> {
 
@@ -12,5 +14,7 @@ public interface PostingsRepository extends JpaRepository<Posting, Integer> {
     Posting getById(String id);
 
     @Query("SELECT p FROM postings p WHERE p.userId = ?1")
-    Posting findPostingsByUserId(String name);
+    List<Posting> findPostingsByUserId(String name);
+
+    List<Posting> findByOrderByCreatedAtDesc();
 }

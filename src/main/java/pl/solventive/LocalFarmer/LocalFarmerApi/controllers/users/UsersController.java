@@ -10,6 +10,8 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.entities.UserType;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UserTypesRepository;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UsersRepository;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping(path = "/v1/users", produces={"application/json; charset=UTF-8"})
 public class UsersController {
@@ -61,7 +63,27 @@ public class UsersController {
             newUser.setRatingPoints(0.0);
             String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
             newUser.setPassword(encodedPassword);
+            newUser.setLastModifiedAt(LocalDateTime.now());
             return usersRepository.save(newUser);
+        } else {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "bad user body"
+            );
+        }
+    }
+
+    @PutMapping(path = "/{id]")
+    LFUser putUser(@PathVariable("id") Integer userId, @RequestBody LFUser newUser) {
+        if (UsersValidator.validateRegisterUser(newUser)) {
+            LFUser user = usersRepository.getOne(userId);
+            if (newUser.getLocationId() != null) user.setLocationId(newUser.getLocationId());
+            if (newUser.getName() != null) user.setName(newUser.getName());
+            if (newUser.getSurname() != null) user.setSurname(newUser.getSurname());
+            if (newUser.getDescription() != null) user.setDescription(newUser.getDescription());
+            if (newUser.getBackgroundPhotoId() != null) user.setBackgroundPhotoId(newUser.getBackgroundPhotoId());
+            if (newUser.getProfilePhotoId() != null) user.setProfilePhotoId(newUser.getProfilePhotoId());
+            user.setLastModifiedAt(LocalDateTime.now());
+            return usersRepository.save(user);
         } else {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "bad user body"

@@ -20,6 +20,7 @@ public class LFUser {
     private String password;
     @NonNull
     private String name;
+    private String surname;
     private String farmName;
     private String description;
     @NonNull
@@ -28,6 +29,9 @@ public class LFUser {
     private Integer accountType;
     private Integer ratings;
     private Double ratingPoints;
+    private String profilePhotoId;
+    private String backgroundPhotoId;
+    private String locationId;
     @NonNull
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
@@ -55,6 +59,14 @@ public class LFUser {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getDescription() {
@@ -143,5 +155,29 @@ public class LFUser {
 
     public void setRatingPoints(Double ratingPoints) {
         this.ratingPoints = ratingPoints;
+    }
+
+    public String getProfilePhotoId() {
+        return profilePhotoId;
+    }
+
+    public void setProfilePhotoId(String profilePhotoId) {
+        this.profilePhotoId = profilePhotoId;
+    }
+
+    public String getBackgroundPhotoId() {
+        return backgroundPhotoId;
+    }
+
+    public void setBackgroundPhotoId(String backgroundPhotoId) {
+        this.backgroundPhotoId = backgroundPhotoId;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 }

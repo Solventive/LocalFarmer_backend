@@ -20,7 +20,7 @@ public class PostingsController {
     @GetMapping(path = "")
     public Iterable<Posting> getAllPostings() {
 
-        return repository.findAll();
+        return repository.findByOrderByCreatedAtDesc();
     }
 
 
