@@ -35,7 +35,7 @@ public class PostingsController {
         }
     }
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "")
     public Posting newPosting(@RequestBody Posting posting) {
         if (validator.verifyPosting(posting)) {
             if (validator.verifyUserId(posting.getUserId())) {
@@ -53,7 +53,7 @@ public class PostingsController {
         }
     }
 
-    @DeleteMapping(path = "/")
+    @DeleteMapping(path = "")
     public ResponseEntity deleteAllPostings() {
         repository.deleteAll();
         return ResponseEntity.ok().body(null);

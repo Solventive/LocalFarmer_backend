@@ -13,7 +13,7 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UsersRepository;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(path = "/v1/users", produces={"application/json; charset=UTF-8"})
+@RequestMapping(path = "/v1/users", produces = {"application/json; charset=UTF-8"})
 public class UsersController {
 
     @Autowired
@@ -72,23 +72,17 @@ public class UsersController {
         }
     }
 
-    @PutMapping(path = "/{id]")
+    @PutMapping(path = "/{id}")
     LFUser putUser(@PathVariable("id") Integer userId, @RequestBody LFUser newUser) {
-        if (UsersValidator.validateRegisterUser(newUser)) {
-            LFUser user = usersRepository.getOne(userId);
-            if (newUser.getLocationId() != null) user.setLocationId(newUser.getLocationId());
-            if (newUser.getName() != null) user.setName(newUser.getName());
-            if (newUser.getSurname() != null) user.setSurname(newUser.getSurname());
-            if (newUser.getDescription() != null) user.setDescription(newUser.getDescription());
-            if (newUser.getBackgroundPhotoId() != null) user.setBackgroundPhotoId(newUser.getBackgroundPhotoId());
-            if (newUser.getProfilePhotoId() != null) user.setProfilePhotoId(newUser.getProfilePhotoId());
-            user.setLastModifiedAt(LocalDateTime.now());
-            return usersRepository.save(user);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "bad user body"
-            );
-        }
+        LFUser user = usersRepository.getOne(userId);
+        if (newUser.getLocationId() != null) user.setLocationId(newUser.getLocationId());
+        if (newUser.getName() != null) user.setName(newUser.getName());
+        if (newUser.getSurname() != null) user.setSurname(newUser.getSurname());
+        if (newUser.getDescription() != null) user.setDescription(newUser.getDescription());
+        if (newUser.getBackgroundPhotoId() != null) user.setBackgroundPhotoId(newUser.getBackgroundPhotoId());
+        if (newUser.getProfilePhotoId() != null) user.setProfilePhotoId(newUser.getProfilePhotoId());
+        user.setLastModifiedAt(LocalDateTime.now());
+        return usersRepository.save(user);
     }
 
 

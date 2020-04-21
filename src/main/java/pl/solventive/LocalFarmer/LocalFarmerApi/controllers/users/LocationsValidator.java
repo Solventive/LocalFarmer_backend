@@ -20,8 +20,6 @@ public class LocationsValidator {
                 location.getLongitude() != null &&
                 location.getCity() != null &&
                 location.getUserId() != null &&
-                location.getBuildingNumber() != null &&
-                location.getPostalCode() != null &&
                 location.getName() != null;
     }
 }

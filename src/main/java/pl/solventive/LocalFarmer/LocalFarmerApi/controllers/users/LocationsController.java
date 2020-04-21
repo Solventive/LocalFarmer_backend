@@ -31,7 +31,7 @@ public class LocationsController {
     }
 
     @GetMapping(path = "/{id}")
-    public LFLocation getLocation(@PathVariable("id") Integer locationId) {
+    public LFLocation getLocation(@PathVariable("id") String locationId) {
         if (repository.findById(locationId).isPresent()) {
             return repository.findById(locationId).get();
         } else {
@@ -41,7 +41,7 @@ public class LocationsController {
         }
     }
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "")
     public LFLocation newLocation(@RequestBody LFLocation location) {
         if (validator.verifyLocation(location)) {
             if (validator.verifyUserId(location.getUserId())) {
@@ -58,7 +58,7 @@ public class LocationsController {
         }
     }
 
-    @DeleteMapping(path = "/")
+    @DeleteMapping(path = "")
     public ResponseEntity deleteAllLocations() {
         repository.deleteAll();
         return ResponseEntity.ok().body(null);

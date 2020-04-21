@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.LFLocation;
 
 @Component
-public interface LocationsRepository extends JpaRepository<LFLocation, Integer> {
+public interface LocationsRepository extends JpaRepository<LFLocation, String> {
 
     @Query("SELECT l FROM locations l WHERE l.userId = ?1")
     Iterable<LFLocation> findByUserId(Integer userId);

@@ -15,7 +15,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
             "/swagger-resources/**",
             "/swagger-ui.html",
             "/v2/api-docs",
-            "/webjars/**"
+            "/webjars/**",
+            "/download/apk/localfarmer"
 //            "/v1/users/register"
     };
 
