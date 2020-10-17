@@ -37,5 +37,4 @@ public class UserType {
     public void setApiName(String apiName) {
         this.apiName = apiName;
     }
-
 }

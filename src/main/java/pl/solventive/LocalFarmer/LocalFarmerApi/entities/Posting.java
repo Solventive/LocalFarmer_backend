@@ -39,9 +39,7 @@ public class Posting {
     @NonNull
     @ElementCollection(targetClass = String.class)
     private List<String> photos;
-    private String city;
-    private String street;
-    private String buildingNumber;
+    private String location;
     private Double latitude;
     private Double longitude;
     @NonNull
@@ -181,27 +179,11 @@ public class Posting {
         this.quantityUnitId = quantityUnitId;
     }
 
-    public String getCity() {
-        return city;
+    public String getLocation() {
+        return location;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getBuildingNumber() {
-        return buildingNumber;
-    }
-
-    public void setBuildingNumber(String buildingNumber) {
-        this.buildingNumber = buildingNumber;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
