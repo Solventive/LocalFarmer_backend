@@ -40,8 +40,6 @@ public class Posting {
     @ElementCollection(targetClass = String.class)
     private List<String> photos;
     private String location;
-    private Double latitude;
-    private Double longitude;
     @NonNull
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
@@ -121,22 +119,6 @@ public class Posting {
 
     public void setPhotos(List<String> photos) {
         this.photos = photos;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public LocalDateTime getCreatedAt() {
