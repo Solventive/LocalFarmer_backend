@@ -18,6 +18,7 @@ public class LFLocation {
 
     private String name;
     private Integer userId;
+    private String fullName;
     private String city;
     private String street;
     private String buildingNumber;
@@ -95,5 +96,13 @@ public class LFLocation {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

@@ -18,7 +18,7 @@ public class LocationsController {
     private LocationsValidator validator;
 
     @GetMapping(path = "")
-    public Iterable<LFLocation> getLocations(@RequestParam("userId") Integer userId) {
+    public Iterable<LFLocation> getLocations(@RequestParam(name = "userId", required = false) Integer userId) {
         if (userId != null) {
             if (validator.verifyUserId(userId)) {
                 return repository.findByUserId(userId);
@@ -44,6 +44,7 @@ public class LocationsController {
     @PostMapping(path = "")
     public LFLocation newLocation(@RequestBody LFLocation location) {
         if (validator.verifyLocation(location)) {
+//            LFUserPrincipal principal = (LFUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (validator.verifyUserId(location.getUserId())) {
                 return repository.save(location);
             } else {
