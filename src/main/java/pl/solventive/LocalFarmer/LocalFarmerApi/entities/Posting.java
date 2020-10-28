@@ -48,6 +48,7 @@ public class Posting {
     private LocalDateTime expiryDate;
     @NonNull
     private Integer status;
+    private PostingDelivery delivery;
 
     public String getId() {
         return id;
@@ -167,5 +168,13 @@ public class Posting {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public PostingDelivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(PostingDelivery delivery) {
+        this.delivery = delivery;
     }
 }
