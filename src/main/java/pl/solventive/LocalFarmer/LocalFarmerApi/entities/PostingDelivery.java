@@ -1,7 +1,11 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
-class PostingDelivery {
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 
+@Embeddable
+class PostingDelivery {
+    @Embedded
     private DeliveryType type;
     private Float price;
     private Float maxWeight;

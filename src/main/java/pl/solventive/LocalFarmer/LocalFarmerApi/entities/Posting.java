@@ -48,6 +48,7 @@ public class Posting {
     private LocalDateTime expiryDate;
     @NonNull
     private Integer status;
+    @Embedded
     @ElementCollection(targetClass = PostingDelivery.class)
     private List<PostingDelivery> deliveries;
 

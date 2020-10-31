@@ -2,6 +2,7 @@ package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
 import javax.persistence.*;
 
+@Embeddable
 @Entity
 @Table(name = "deliveryTypes")
 public class DeliveryType {
