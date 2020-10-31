@@ -14,7 +14,7 @@ public class DeliveryType {
 
     private String apiName;
 
-    private Boolean isLocalFarmerService;
+    private Boolean isTuFarmerService;
 
     public Integer getId() {
         return id;
@@ -40,11 +40,11 @@ public class DeliveryType {
         this.apiName = apiName;
     }
 
-    public Boolean getLocalFarmerService() {
-        return isLocalFarmerService;
+    public Boolean getTuFarmerService() {
+        return isTuFarmerService;
     }
 
-    public void setLocalFarmerService(Boolean localFarmerService) {
-        isLocalFarmerService = localFarmerService;
+    public void setTuFarmerService(Boolean tuFarmerService) {
+        isTuFarmerService = tuFarmerService;
     }
 }

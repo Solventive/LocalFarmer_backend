@@ -48,7 +48,8 @@ public class Posting {
     private LocalDateTime expiryDate;
     @NonNull
     private Integer status;
-    private PostingDelivery delivery;
+    @ElementCollection(targetClass = PostingDelivery.class)
+    private List<PostingDelivery> deliveries;
 
     public String getId() {
         return id;
@@ -170,11 +171,11 @@ public class Posting {
         this.location = location;
     }
 
-    public PostingDelivery getDelivery() {
-        return delivery;
+    public List<PostingDelivery> getDeliveries() {
+        return deliveries;
     }
 
-    public void setDelivery(PostingDelivery delivery) {
-        this.delivery = delivery;
+    public void setDeliveries(List<PostingDelivery> deliveries) {
+        this.deliveries = deliveries;
     }
 }

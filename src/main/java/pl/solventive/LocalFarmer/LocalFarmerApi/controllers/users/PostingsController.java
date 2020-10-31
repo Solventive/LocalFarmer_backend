@@ -80,7 +80,7 @@ public class PostingsController {
 
     @PostMapping(path = "/deliveryTypes")
     public DeliveryType postDeliveryType(@RequestBody DeliveryType type) {
-        if (type.getLocalFarmerService() != null && type.getName() != null && type.getApiName() != null) {
+        if (type.getTuFarmerService() != null && type.getName() != null && type.getApiName() != null) {
             return deliveryTypeRepo.save(type);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Delivery type body is incorrect");
@@ -88,7 +88,7 @@ public class PostingsController {
     }
 
     @DeleteMapping(path = "/deliveryTypes")
-    public ResponseEntity getDeliveryTypes(@PathVariable("id") Integer id) {
+    public ResponseEntity deleteDeliveryType(@PathVariable("id") Integer id) {
         deliveryTypeRepo.deleteById(id);
         return ResponseEntity.ok().body(null);
     }
