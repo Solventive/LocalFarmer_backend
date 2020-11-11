@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,8 +49,8 @@ public class Posting {
     private LocalDateTime expiryDate;
     @NonNull
     private Integer status;
-    @Embedded
     @ElementCollection(targetClass = PostingDelivery.class)
+    @Valid
     private List<PostingDelivery> deliveries;
 
     public String getId() {
