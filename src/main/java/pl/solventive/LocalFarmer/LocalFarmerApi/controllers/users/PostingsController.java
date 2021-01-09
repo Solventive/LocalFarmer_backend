@@ -88,7 +88,7 @@ public class PostingsController {
     }
 
     @DeleteMapping(path = "/deliveryTypes")
-    public ResponseEntity deleteDeliveryType(@PathVariable("id") Integer id) {
+    public ResponseEntity deleteDeliveryType(@RequestParam("id") Integer id) {
         deliveryTypeRepo.deleteById(id);
         return ResponseEntity.ok().body(null);
     }

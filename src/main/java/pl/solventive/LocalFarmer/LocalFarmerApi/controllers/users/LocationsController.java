@@ -48,7 +48,6 @@ public class LocationsController {
     @PostMapping(path = "")
     public LFLocation newLocation(@RequestBody LFLocation location) {
         if (validator.verifyLocation(location)) {
-//            LFUserPrincipal principal = (LFUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (validator.verifyUserId(location.getUserId())) {
                 return repository.save(location);
             } else {
