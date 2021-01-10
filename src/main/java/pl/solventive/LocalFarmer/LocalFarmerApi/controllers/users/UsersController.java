@@ -59,9 +59,9 @@ public class UsersController {
         return usersRepository.save(completeUser);
     }
 
-    @PutMapping(path = "/{id}")
-    LFUser putUser(@PathVariable("id") Integer userId, @Valid @RequestBody LFUser newUser) {
-        LFUser user = usersRepository.getOne(userId);
+    @PutMapping(path = "/edit")
+    LFUser putUser(@Valid @RequestBody LFUser newUser) {
+        LFUser user = usersRepository.getOne(RequestHandler.getUserId());
         if (newUser.getLocationId() != null) user.setLocationId(newUser.getLocationId());
         if (newUser.getName() != null) user.setName(newUser.getName());
         if (newUser.getSurname() != null) user.setSurname(newUser.getSurname());
