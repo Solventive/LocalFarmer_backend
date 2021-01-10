@@ -20,7 +20,6 @@ public class Order {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long number;
-    private String title;
     @NonNull
     private Integer userId;
     @NonNull
@@ -42,7 +41,7 @@ public class Order {
     private LocalDateTime createdAt;
     @NonNull
     private Integer status;
-    @ElementCollection(targetClass = PostingDelivery.class)
+    @NonNull
     @Valid
     private List<PostingDelivery> delivery;
 
@@ -60,14 +59,6 @@ public class Order {
 
     public void setNumber(long number) {
         this.number = number;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Integer getUserId() {

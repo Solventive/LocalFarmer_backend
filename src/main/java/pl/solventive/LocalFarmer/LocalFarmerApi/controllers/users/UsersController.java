@@ -1,15 +1,15 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.controllers.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.LFUser;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.UserType;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UserTypesRepository;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.UsersRepository;
+import pl.solventive.LocalFarmer.LocalFarmerApi.util.RequestHandler;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @RestController
@@ -24,14 +24,12 @@ public class UsersController {
 
     @GetMapping(path = "")
     public Iterable<LFUser> getUsers() {
-
-        return usersRepository.findAll();
+        return RequestHandler.getList(usersRepository.findAll());
     }
 
     @GetMapping(path = "/types")
     public Iterable<UserType> getTypes() {
-
-        return typesRepository.findAll();
+        return RequestHandler.getList(typesRepository.findAll());
     }
 
     @GetMapping(path = "/verify/{phoneNumber}")
@@ -47,33 +45,22 @@ public class UsersController {
 
     @GetMapping(path = "/{id}")
     public LFUser getUser(@PathVariable("id") Integer userId) {
-        if (usersRepository.findById(userId).isPresent()) {
-            return usersRepository.findById(userId).get();
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "user not found"
-            );
-        }
+        return RequestHandler.getSingle(usersRepository.findById(userId), "user");
     }
 
     @PostMapping(path = "/register")
     LFUser newUser(@RequestBody LFUser newUser) {
-        if (UsersValidator.validateRegisterUser(newUser)) {
-            newUser.setRatings(0);
-            newUser.setRatingPoints(0.0);
-            String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
-            newUser.setPassword(encodedPassword);
-            newUser.setLastModifiedAt(LocalDateTime.now());
-            return usersRepository.save(newUser);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "bad user body"
-            );
-        }
+        newUser.setRatings(0);
+        newUser.setRatingPoints(0.0);
+        String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
+        newUser.setPassword(encodedPassword);
+        newUser.setCreatedAt(LocalDateTime.now());
+        @Valid LFUser completeUser = newUser;
+        return usersRepository.save(completeUser);
     }
 
     @PutMapping(path = "/{id}")
-    LFUser putUser(@PathVariable("id") Integer userId, @RequestBody LFUser newUser) {
+    LFUser putUser(@PathVariable("id") Integer userId, @Valid @RequestBody LFUser newUser) {
         LFUser user = usersRepository.getOne(userId);
         if (newUser.getLocationId() != null) user.setLocationId(newUser.getLocationId());
         if (newUser.getName() != null) user.setName(newUser.getName());
@@ -84,6 +71,4 @@ public class UsersController {
         user.setLastModifiedAt(LocalDateTime.now());
         return usersRepository.save(user);
     }
-
-
 }

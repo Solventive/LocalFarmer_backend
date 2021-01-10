@@ -1,16 +1,16 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.controllers.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.DeliveryType;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.Posting;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.DBFileRepository;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.DeliveryTypesRepository;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.PostingsRepository;
+import pl.solventive.LocalFarmer.LocalFarmerApi.util.RequestHandler;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,43 +29,25 @@ public class PostingsController {
 
     @GetMapping(path = "")
     public Iterable<Posting> getAllPostings() {
-
         return repository.findByOrderByCreatedAtDesc();
     }
 
-
     @GetMapping(path = "/{id}")
     public Posting getPosting(@PathVariable("id") String postingId) {
-        if (repository.getById(postingId) != null) {
-            return repository.getById(postingId);
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "posting not found"
-            );
-        }
+        return RequestHandler.getSingle(repository.findById(postingId), "posting");
     }
 
     @PostMapping(path = "")
     public Posting newPosting(@RequestBody Posting posting) {
-        if (validator.verifyPosting(posting)) {
-            if (validator.verifyUserId(posting.getUserId())) {
-                if (posting.getStatus() == null) posting.setStatus(1);
-                return repository.save(posting);
-            } else {
-                throw new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST, "User does not exist"
-                );
-            }
-        } else {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Posting body is incorrect"
-            );
-        }
+        posting.setUserId(RequestHandler.getUserId());
+        if (posting.getStatus() == null) posting.setStatus(1);
+        @Valid Posting completePosting = posting;
+        return repository.save(completePosting);
     }
 
     @DeleteMapping(path = "")
     public ResponseEntity deleteAllPostings() {
-        ArrayList<String> photos = new ArrayList<String>();
+        ArrayList<String> photos = new ArrayList<>();
         List<Posting> list = repository.findAll();
         list.forEach((posting) -> photos.addAll(posting.getPhotos()));
         photos.forEach((photo) -> fileRepo.deleteById(photo));
@@ -75,16 +57,12 @@ public class PostingsController {
 
     @GetMapping(path = "/deliveryTypes")
     public Iterable<DeliveryType> getDeliveryTypes() {
-        return deliveryTypeRepo.findAll();
+        return RequestHandler.getList(deliveryTypeRepo.findAll());
     }
 
     @PostMapping(path = "/deliveryTypes")
-    public DeliveryType postDeliveryType(@RequestBody DeliveryType type) {
-        if (type.getTuFarmerService() != null && type.getName() != null && type.getApiName() != null) {
-            return deliveryTypeRepo.save(type);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Delivery type body is incorrect");
-        }
+    public DeliveryType postDeliveryType(@Valid @RequestBody DeliveryType type) {
+        return deliveryTypeRepo.save(type);
     }
 
     @DeleteMapping(path = "/deliveryTypes")

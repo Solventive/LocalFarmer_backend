@@ -1,5 +1,7 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 
 @Embeddable
@@ -11,10 +13,11 @@ public class DeliveryType {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @NonNull
     private String name;
-
+    @NonNull
     private String apiName;
-
+    @NonNull
     private Boolean isTuFarmerService;
 
     public Integer getId() {

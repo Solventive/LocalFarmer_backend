@@ -7,6 +7,9 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.entities.ProductCategory;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.ProductUnit;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.ProductCategoriesRepository;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.ProductUnitsRepository;
+import pl.solventive.LocalFarmer.LocalFarmerApi.util.RequestHandler;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/v1/products", produces={"application/json; charset=UTF-8"})
@@ -19,50 +22,42 @@ public class ProductsController {
 
     @GetMapping(path = "/categories")
     public Iterable<ProductCategory> getProductCategories() {
-
-        return productCategoriesRepository.findAll();
+        return RequestHandler.getList(productCategoriesRepository.findAll());
     }
 
     @GetMapping(path = "/units")
     public Iterable<ProductUnit> getProductUnits() {
-
-        return productUnitsRepository.findAll();
+        return RequestHandler.getList(productUnitsRepository.findAll());
     }
 
     @PostMapping(path = "/units")
-    public ProductUnit postProductUnit(@RequestBody ProductUnit unit) {
-
+    public ProductUnit postProductUnit(@Valid @RequestBody ProductUnit unit) {
         return productUnitsRepository.save(unit);
     }
 
     @PostMapping(path = "/categories")
-    public ProductCategory getProductCategory(@RequestBody ProductCategory category) {
-
+    public ProductCategory getProductCategory(@Valid @RequestBody ProductCategory category) {
         return productCategoriesRepository.save(category);
     }
 
     @PutMapping(path = "/units")
-    public ProductUnit putProductUnit(@RequestBody ProductUnit unit) {
-
+    public ProductUnit putProductUnit(@Valid @RequestBody ProductUnit unit) {
         return productUnitsRepository.save(unit);
     }
 
     @PutMapping(path = "/categories")
-    public ProductCategory putProductCategory(@RequestBody ProductCategory category) {
-
+    public ProductCategory putProductCategory(@Valid @RequestBody ProductCategory category) {
         return productCategoriesRepository.save(category);
     }
 
     @DeleteMapping(path = "/units/{id}")
     public String deleteProductUnit(@PathVariable("id") Integer id) {
-
         productCategoriesRepository.deleteById(id);
         return "category" + id + " deleted";
     }
 
     @DeleteMapping(path = "/categories/{id}")
     public String deleteProductCategory(@PathVariable("id") Integer id) {
-
         productCategoriesRepository.deleteById(id);
         return "category" + id + " deleted";
     }

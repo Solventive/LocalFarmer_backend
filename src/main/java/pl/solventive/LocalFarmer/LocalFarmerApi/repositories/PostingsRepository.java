@@ -8,7 +8,7 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.entities.Posting;
 import java.util.List;
 
 @Component
-public interface PostingsRepository extends JpaRepository<Posting, Integer> {
+public interface PostingsRepository extends JpaRepository<Posting, String> {
 
     @Query("SELECT p FROM postings p WHERE p.id = ?1")
     Posting getById(String id);

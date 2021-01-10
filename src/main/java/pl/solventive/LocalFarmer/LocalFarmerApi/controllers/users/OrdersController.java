@@ -2,15 +2,15 @@ package pl.solventive.LocalFarmer.LocalFarmerApi.controllers.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.Order;
 import pl.solventive.LocalFarmer.LocalFarmerApi.repositories.OrdersRepository;
-import pl.solventive.LocalFarmer.LocalFarmerApi.security.services.LFUserPrincipal;
 import pl.solventive.LocalFarmer.LocalFarmerApi.util.RequestHandler;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping(path = "/v1/postings", produces={"application/json; charset=UTF-8"})
+@RequestMapping(path = "/v1/orders", produces={"application/json; charset=UTF-8"})
 public class OrdersController {
 
     @Autowired
@@ -18,20 +18,20 @@ public class OrdersController {
 
     @GetMapping(path = "")
     public Iterable<Order> getAllOrders() {
-        return RequestHandler.handleList(repository.findByOrderByCreatedAtDesc());
+        return RequestHandler.getList(repository.findByOrderByCreatedAtDesc());
     }
 
     @GetMapping(path = "/{id}")
     public Order getOrder(@PathVariable("id") String orderId) {
-        return RequestHandler.handleSingle(repository.getById(orderId), "order");
+        return RequestHandler.getSingle(repository.findById(orderId), "order");
     }
 
     @PostMapping(path = "")
-    public Order newOrder(@RequestBody Order order) {
-        LFUserPrincipal principal = (LFUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        order.setUserId(principal.getUserId());
+    public Order newOrder(@Valid @RequestBody Order order) {
+        order.setUserId(RequestHandler.getUserId());
         if (order.getStatus() == null) order.setStatus(1);
-        return repository.save(order);
+        @Valid Order completeOrder = order;
+        return repository.save(completeOrder);
     }
 
     @DeleteMapping(path = "")

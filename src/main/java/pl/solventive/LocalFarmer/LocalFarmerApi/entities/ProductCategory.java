@@ -1,5 +1,7 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,9 +11,9 @@ public class ProductCategory {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-
+    @NonNull
     private String name;
-
+    @NonNull
     private String apiName;
 
     public Integer getId() {

@@ -8,7 +8,7 @@ import pl.solventive.LocalFarmer.LocalFarmerApi.entities.Order;
 import java.util.List;
 
 @Component
-public interface OrdersRepository extends JpaRepository<Order, Integer> {
+public interface OrdersRepository extends JpaRepository<Order, String> {
 
     @Query("SELECT o FROM orders o WHERE o.id = ?1")
     Order getById(String id);

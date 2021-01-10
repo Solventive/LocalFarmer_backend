@@ -1,6 +1,7 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,14 +17,21 @@ public class LFLocation {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @NonNull
     private String name;
     private Integer userId;
     private String fullName;
+    @NonNull
     private String city;
+    @NonNull
     private String street;
+    @NonNull
     private String buildingNumber;
+    @NonNull
     private String postalCode;
+    @NonNull
     private Double latitude;
+    @NonNull
     private Double longitude;
 
     public String getId() {

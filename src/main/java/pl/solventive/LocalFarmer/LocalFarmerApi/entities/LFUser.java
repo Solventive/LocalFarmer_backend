@@ -27,7 +27,9 @@ public class LFUser {
     private String phoneNumber;
     @NonNull
     private Integer accountType;
+    @NonNull
     private Integer ratings;
+    @NonNull
     private Double ratingPoints;
     private String profilePhotoId;
     private String backgroundPhotoId;
