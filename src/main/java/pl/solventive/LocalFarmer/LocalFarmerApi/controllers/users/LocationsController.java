@@ -1,5 +1,6 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.controllers.users;
 
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,9 @@ public class LocationsController {
     }
 
     @PostMapping(path = "")
-    public LFLocation newLocation(@RequestBody LFLocation location) {
-        location.setUserId(RequestHandler.getUserId());
-        @Valid LFLocation completeLocation = location;
-        return repository.save(completeLocation);
+    public LFLocation newLocation(@ApiParam(name = "location") @RequestBody @Valid LFLocation lfLocation) {
+        lfLocation.setUserId(RequestHandler.getUserId());
+        return repository.save(lfLocation);
     }
 
     @DeleteMapping(path = "")

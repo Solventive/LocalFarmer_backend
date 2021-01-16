@@ -1,12 +1,12 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity(name="locations")
 @Table(name="locations")
@@ -17,21 +17,21 @@ public class LFLocation {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @NonNull
+    @NotNull(message = "name cannot be null")
     private String name;
     private Integer userId;
     private String fullName;
-    @NonNull
+    @NotNull(message = "city cannot be null")
     private String city;
-    @NonNull
+    @NotNull(message = "street cannot be null")
     private String street;
-    @NonNull
+    @NotNull(message = "buildingNumber cannot be null")
     private String buildingNumber;
-    @NonNull
+    @NotNull(message = "postalCode cannot be null")
     private String postalCode;
-    @NonNull
+    @NotNull(message = "latitude cannot be null")
     private Double latitude;
-    @NonNull
+    @NotNull(message = "longitude cannot be null")
     private Double longitude;
 
     public String getId() {

@@ -10,10 +10,10 @@ import java.util.List;
 @Component
 public interface OrdersRepository extends JpaRepository<Order, String> {
 
-    @Query("SELECT o FROM orders o WHERE o.id = ?1")
+    @Query(value = "SELECT o FROM orders o WHERE o.id = ?1", nativeQuery = true)
     Order getById(String id);
 
-    @Query("SELECT o FROM orders o WHERE o.userId = ?1")
+    @Query(value = "SELECT o FROM orders o WHERE o.userId = ?1", nativeQuery = true)
     List<Order> findOrdersByUserId(String name);
 
     List<Order> findByOrderByCreatedAtDesc();

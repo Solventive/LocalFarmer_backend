@@ -14,7 +14,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import pl.solventive.LocalFarmer.LocalFarmerApi.security.services.LFUserDetailsService;
@@ -64,6 +67,13 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Bean
+    public UserAuthenticationConverter userAuthenticationConverter() {
+        DefaultUserAuthenticationConverter defaultUserAuthenticationConverter = new DefaultUserAuthenticationConverter();
+        defaultUserAuthenticationConverter.setUserDetailsService(userDetailsService);
+        return defaultUserAuthenticationConverter;
+    }
+
+    @Bean
     public JwtAccessTokenConverter defaultAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter() {
             @Override
@@ -78,7 +88,9 @@ public class OAuthConfig extends AuthorizationServerConfigurerAdapter {
                 return accessToken;
             }
         };
-        converter.setSigningKey("123");
+        ((DefaultAccessTokenConverter) converter.getAccessTokenConverter())
+                .setUserTokenConverter(userAuthenticationConverter());
+        converter.setSigningKey("VCk1U9eZ");
         return converter;
     }
 }

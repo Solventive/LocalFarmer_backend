@@ -2,7 +2,7 @@ package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -20,30 +20,31 @@ public class Order {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long number;
-    @NonNull
+    @NotNull(message = "userId cannot be null")
     private Integer userId;
-    @NonNull
+    @NotNull(message = "sellerId cannot be null")
     private Integer sellerId;
-    @NonNull
+    @NotNull(message = "Price cannot be null")
     private Double price;
-    @NonNull
+    @NotNull(message = "quantityUnitId cannot be null")
     private Integer quantityUnitId;
-    @NonNull
+    @NotNull(message = "categoryId cannot be null")
     private Integer categoryId;
-    @NonNull
+    @NotNull(message = "quantity cannot be null")
     private Double quantity;
-    @NonNull
+    @NotNull(message = "mainPhotoId cannot be null")
     private String mainPhotoId;
-    @NonNull
+    @NotNull(message = "location cannot be null")
     private String location;
-    @NonNull
+    @NotNull(message = "createdAt cannot be null")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
-    @NonNull
+    @NotNull(message = "deliveries cannot be null")
     private Integer status;
-    @NonNull
+    @NotNull(message = "Price cannot be null")
     @Valid
-    private List<PostingDelivery> delivery;
+    @ElementCollection(targetClass = PostingDelivery.class)
+    private List<PostingDelivery> deliveries;
 
     public String getId() {
         return id;
@@ -142,10 +143,10 @@ public class Order {
     }
 
     public List<PostingDelivery> getDelivery() {
-        return delivery;
+        return deliveries;
     }
 
-    public void setDelivery(List<PostingDelivery> delivery) {
-        this.delivery = delivery;
+    public void setDelivery(List<PostingDelivery> deliveries) {
+        this.deliveries = deliveries;
     }
 }
