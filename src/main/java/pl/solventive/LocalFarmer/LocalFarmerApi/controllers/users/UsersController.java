@@ -2,6 +2,7 @@ package pl.solventive.LocalFarmer.LocalFarmerApi.controllers.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.LFUser;
 import pl.solventive.LocalFarmer.LocalFarmerApi.entities.UserType;
@@ -49,18 +50,17 @@ public class UsersController {
     }
 
     @PostMapping(path = "/register")
-    LFUser newUser(@RequestBody LFUser newUser) {
+    LFUser newUser(@Validated @RequestBody LFUser newUser) {
         newUser.setRatings(0);
         newUser.setRatingPoints(0.0);
         String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
         newUser.setPassword(encodedPassword);
         newUser.setCreatedAt(LocalDateTime.now());
-        @Valid LFUser completeUser = newUser;
-        return usersRepository.save(completeUser);
+        return usersRepository.save(newUser);
     }
 
     @PutMapping(path = "/edit")
-    LFUser putUser(@Valid @RequestBody LFUser newUser) {
+    LFUser putUser(@Validated @RequestBody LFUser newUser) {
         LFUser user = RequestHandler.getSingle(usersRepository.findById(RequestHandler.getUserId()), "user");
         if (newUser.getLocationId() != null) user.setLocationId(newUser.getLocationId());
         if (newUser.getName() != null) user.setName(newUser.getName());

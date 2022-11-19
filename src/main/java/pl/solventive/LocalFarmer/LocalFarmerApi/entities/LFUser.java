@@ -1,8 +1,9 @@
 package pl.solventive.LocalFarmer.LocalFarmerApi.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.lang.NonNull;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -16,25 +17,22 @@ public class LFUser {
     private Integer id;
 
     @Size
-    @NonNull
+    @NotEmpty(message = "password cannot be empty")
     private String password;
-    @NonNull
+    @NotEmpty(message = "name cannot be empty")
     private String name;
     private String surname;
     private String farmName;
     private String description;
-    @NonNull
+    @NotEmpty(message = "phoneNumber cannot be empty")
     private String phoneNumber;
-    @NonNull
+    @NotNull(message = "accountType cannot be null")
     private Integer accountType;
-    @NonNull
     private Integer ratings;
-    @NonNull
     private Double ratingPoints;
     private String profilePhotoId;
     private String backgroundPhotoId;
     private String locationId;
-    @NonNull
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
